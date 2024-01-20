@@ -1,4 +1,6 @@
-import { buildServer } from '~/http/server';
+import { env } from '~/config';
+import { buildServer } from '~/http';
+import { logger } from './utils';
 
 async function gracefulShutdown({ app }: { app: Awaited<ReturnType<typeof buildServer>> }) {
 	await app.close();
@@ -6,8 +8,9 @@ async function gracefulShutdown({ app }: { app: Awaited<ReturnType<typeof buildS
 
 async function main() {
 	const app = await buildServer();
+	logger.debug(env, 'using env');
 
-	await app.listen({ port: 3000, host: '0.0.0.0' });
+	await app.listen({ port: env.PORT, host: env.HOST });
 
 	const signals = ['SIGINT', 'SIGTERM'];
 
