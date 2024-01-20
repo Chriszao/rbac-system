@@ -1,5 +1,5 @@
-import fastify from 'fastify';
 import { logger } from '~/utils';
+import fastify from 'fastify';
 
 export async function buildServer() {
 	const app = fastify({
