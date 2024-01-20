@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/main.ts",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
+    "lint": "eslint src --ext ts --report-unused-disable-directives --max-warnings 0 --fix",
     "format": "prettier --write src",
     "format:all": "yarn lint && yarn format",
     "migrate": "drizzle-kit generate:pg"

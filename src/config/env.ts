@@ -6,8 +6,6 @@ export const env = zennv({
 	schema: z.object({
 		PORT: z.coerce.number().default(3000),
 		HOST: z.string().default('0.0.0.0'),
-		POSTGRES_USER: z.string(),
-		POSTGRES_PASSWORD: z.string(),
-		POSTGRES_DB: z.string(),
+		DATABASE_URL: z.string(),
 	}),
 });
