@@ -1,3 +1,4 @@
+import { type InferInsertModel, type InferSelectModel } from 'drizzle-orm';
 import { pgTable, primaryKey, uuid } from 'drizzle-orm/pg-core';
 
 import { applications } from './application';
@@ -25,3 +26,9 @@ export const usersToRoles = pgTable(
 		}),
 	}),
 );
+
+export type InsertUserToRole = InferInsertModel<typeof usersToRoles>;
+
+export type UpdateUserToRole = Omit<Partial<InsertUserToRole>, 'id'>;
+
+export type UserToRole = InferSelectModel<typeof usersToRoles>;

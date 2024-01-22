@@ -1,3 +1,4 @@
+import { type InferInsertModel, type InferSelectModel } from 'drizzle-orm';
 import { pgTable, primaryKey, timestamp, uniqueIndex, uuid, varchar } from 'drizzle-orm/pg-core';
 
 import { applications } from './application';
@@ -18,3 +19,9 @@ export const users = pgTable(
 		idIndex: uniqueIndex('users_id_index').on(users.id),
 	}),
 );
+
+export type InsertUser = InferInsertModel<typeof users>;
+
+export type UpdateUser = Omit<Partial<InsertUser>, 'id'>;
+
+export type User = InferSelectModel<typeof users>;

@@ -1,3 +1,4 @@
+import { type InferInsertModel, type InferSelectModel } from 'drizzle-orm';
 import {
 	pgTable,
 	primaryKey,
@@ -25,3 +26,9 @@ export const roles = pgTable(
 		idIndex: uniqueIndex('roles_id_index').on(roles.id),
 	}),
 );
+
+export type InsertRole = InferInsertModel<typeof roles>;
+
+export type UpdateRole = Omit<Partial<InsertRole>, 'id'>;
+
+export type Role = InferSelectModel<typeof roles>;
