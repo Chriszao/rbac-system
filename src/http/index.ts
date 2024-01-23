@@ -2,8 +2,7 @@ import { logger } from '~/utils';
 import fastify from 'fastify';
 
 import { errorHandler } from './error-handling';
-import { applicationsRoutes } from './routes';
-import { usersRoutes } from './routes/users';
+import { applicationsRoutes, rolesRoutes, usersRoutes } from './routes';
 
 export async function buildServer() {
 	const app = fastify({
@@ -15,6 +14,7 @@ export async function buildServer() {
 	// register routes
 	app.register(applicationsRoutes, { prefix: '/api/applications' });
 	app.register(usersRoutes, { prefix: '/api/users' });
+	app.register(rolesRoutes, { prefix: '/api/roles' });
 
 	app.setErrorHandler(errorHandler);
 
