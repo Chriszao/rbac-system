@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es2016",
     "module": "commonjs",
+    "moduleResolution": "Node",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -9,8 +10,14 @@
     "baseUrl": ".",
     "paths": {
       "~/*": [
-        "src/*"
+        "./src/*"
       ]
     }
-  }
+  },
+  "include": [
+    "**/*.ts"
+  ],
+  "exclude": [
+    "./node_modules",
+  ]
 }
