@@ -1,15 +1,21 @@
 import { db } from '~/db';
 import {
 	users,
-	type InsertUser,
-	type User,
-	type InsertUserToRole,
 	usersToRoles,
+	type InsertUser,
+	type InsertUserToRole,
+	type User,
 	type UserToRole,
+	roles,
 } from '~/db/schemas';
-import { type IUsersRepository, type InsertedUser } from '~/modules/users/repositories';
+import {
+	type GetUserByEmailReturn,
+	type GetUserByEmailProps,
+	type IUsersRepository,
+	type InsertedUser,
+} from '~/modules/users/repositories';
 import argon2 from 'argon2';
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 
 export class DrizzleUsersRepository implements IUsersRepository {
 	async insert(data: InsertUser): Promise<InsertedUser> {
@@ -41,5 +47,57 @@ export class DrizzleUsersRepository implements IUsersRepository {
 		const result = await db.insert(usersToRoles).values(data).returning();
 
 		return result[0];
+	}
+
+	async getByEmail({
+		applicationId,
+		email,
+	}: GetUserByEmailProps): Promise<GetUserByEmailReturn | null> {
+		const result = await db
+			.select({
+				id: users.id,
+				email: users.email,
+				name: users.name,
+				applicationId: users.applicationId,
+				roleId: roles.id,
+				password: users.password,
+				permissions: roles.permissions,
+			})
+			.from(users)
+			.where(and(eq(users.email, email), eq(users.applicationId, applicationId)))
+			.leftJoin(
+				usersToRoles,
+				and(eq(usersToRoles.userId, users.id), eq(usersToRoles.applicationId, users.applicationId)),
+			)
+			.leftJoin(roles, eq(roles.id, usersToRoles.roleId));
+
+		const user = result.reduce(
+			(acc, current) => {
+				if (!acc.id) {
+					return {
+						...current,
+						permissions: new Set(current.permissions),
+					};
+				}
+
+				if (!current.permissions) {
+					return acc;
+				}
+
+				for (const permission of current.permissions) {
+					acc.permissions.add(permission);
+				}
+
+				return acc;
+			},
+			{} as Omit<GetUserByEmailReturn, 'permissions'> & { permissions: Set<string> },
+		);
+
+		return result.length > 0
+			? {
+					...user,
+					permissions: Array.from(user.permissions),
+				}
+			: null;
 	}
 }
