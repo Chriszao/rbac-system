@@ -1,1 +1,1 @@
-export * from './drizzle-repository';
+export * from './drizzle-roles-repository';

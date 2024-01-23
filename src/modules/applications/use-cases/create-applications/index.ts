@@ -5,7 +5,7 @@ import { type FastifyReply, type FastifyRequest } from 'fastify';
 import { CreateApplicationsController } from './controller';
 import { type CreateApplicationBody } from './schema';
 
-export class CreateApplicationHandler {
+export class CreateApplicationUseCase {
 	static handle(request: FastifyRequest<{ Body: CreateApplicationBody }>, _: FastifyReply) {
 		const { name } = request.body;
 
