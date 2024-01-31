@@ -1,3 +1,6 @@
+import argon2 from 'argon2';
+import { and, eq } from 'drizzle-orm';
+
 import { db } from '~/db';
 import {
 	users,
@@ -14,8 +17,6 @@ import {
 	type IUsersRepository,
 	type InsertedUser,
 } from '~/modules/users/repositories';
-import argon2 from 'argon2';
-import { and, eq } from 'drizzle-orm';
 
 export class DrizzleUsersRepository implements IUsersRepository {
 	async insert(data: InsertUser): Promise<InsertedUser> {

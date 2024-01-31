@@ -7,7 +7,7 @@
     "dev": "tsx watch src/main.ts",
     "lint": "eslint src --ext ts --report-unused-disable-directives --max-warnings 0 --fix",
     "format": "prettier --write src",
-    "format:all": "yarn lint && yarn format",
+    "format:all": "pnpm lint && pnpm format",
     "migrate": "drizzle-kit generate:pg"
   },
   "keywords": [],

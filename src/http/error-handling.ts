@@ -1,6 +1,7 @@
+import { type FastifyReply, type FastifyRequest } from 'fastify';
+
 import { BaseError, HttpStatusCode } from '~/shared/errors';
 import { logger } from '~/utils';
-import { type FastifyReply, type FastifyRequest } from 'fastify';
 
 export function errorHandler(error: unknown, request: FastifyRequest, reply: FastifyReply) {
 	logger.error(error, 'Something went wrong');

@@ -1,5 +1,6 @@
-import { DrizzleUsersRepository } from '~/modules/users/repositories';
 import { type FastifyReply, type FastifyRequest } from 'fastify';
+
+import { DrizzleUsersRepository } from '~/modules/users/repositories';
 
 import { LoginController } from './controller';
 import { type LoginBody } from './schema';

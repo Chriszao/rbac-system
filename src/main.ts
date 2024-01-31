@@ -1,8 +1,9 @@
+import { migrate } from 'drizzle-orm/node-postgres/migrator';
+
 import { env } from '~/config';
 import { db } from '~/db';
 import { buildServer } from '~/http';
 import { logger } from '~/utils';
-import { migrate } from 'drizzle-orm/node-postgres/migrator';
 
 async function gracefulShutdown({ app }: { app: Awaited<ReturnType<typeof buildServer>> }) {
 	await app.close();

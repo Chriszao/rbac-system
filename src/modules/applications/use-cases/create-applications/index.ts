@@ -1,6 +1,7 @@
+import { type FastifyReply, type FastifyRequest } from 'fastify';
+
 import { DrizzleApplicationsRepository } from '~/modules/applications/repositories';
 import { DrizzleRolesRepository } from '~/modules/roles/repositories';
-import { type FastifyReply, type FastifyRequest } from 'fastify';
 
 import { CreateApplicationsController } from './controller';
 import { type CreateApplicationBody } from './schema';

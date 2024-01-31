@@ -1,6 +1,7 @@
+import { and, eq } from 'drizzle-orm';
+
 import { db } from '~/db';
 import { roles, type InsertRole, type Role } from '~/db/schemas';
-import { and, eq } from 'drizzle-orm';
 
 import { type GetByNameProps, type IRoleRepository } from '../roles-repository';
 

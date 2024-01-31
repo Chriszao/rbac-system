@@ -5,7 +5,7 @@ import { type CreateRoleBody } from './schema';
 export class CreateRoleController {
 	constructor(private readonly rolesRepository: IRoleRepository) {}
 
-	async execute({ applicationId, name, permissions }: CreateRoleBody) {
+	async execute({ applicationId, name, permissions }: CreateRoleBody & { applicationId: string }) {
 		const role = await this.rolesRepository.insert({
 			name,
 			applicationId,
